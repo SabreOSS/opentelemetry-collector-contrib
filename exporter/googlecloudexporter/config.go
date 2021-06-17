@@ -52,6 +52,8 @@ type Config struct {
 	// Max number of metric's labels. Metrics exceeding this would be dropped. Default 0 = no limit
 	LabelsLimit int `mapstructure:"labels_limit"`
 
+	LabelsToResources []LabelsToResource `mapstructure:"labels_to_resources"`
+
 	MetricConfig MetricConfig `mapstructure:"metric"`
 }
 
@@ -66,6 +68,18 @@ type ResourceMapping struct {
 	TargetType string `mapstructure:"target_type"`
 
 	LabelMappings []LabelMapping `mapstructure:"label_mappings"`
+}
+
+type LabelsToResource struct {
+	RequiredLabel string `mapstructure:"required_label"`
+	TargetType    string `mapstructure:"target_type"`
+
+	LabelToResources []LabelToResource `mapstructure:"label_to_resource"`
+}
+
+type LabelToResource struct {
+	SourceLabel         string `mapstructure:"source_label"`
+	TargetResourceLabel string `mapstructure:"target_resource_label"`
 }
 
 type LabelMapping struct {

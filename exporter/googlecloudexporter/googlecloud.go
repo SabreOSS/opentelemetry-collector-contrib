@@ -22,10 +22,13 @@ import (
 	"fmt"
 	cloudtrace "github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace"
 	metricspb "github.com/census-instrumentation/opencensus-proto/gen-go/metrics/v1"
+	resourcepb "github.com/census-instrumentation/opencensus-proto/gen-go/resource/v1"
 	"go.opentelemetry.io/collector/component"
+	"go.opentelemetry.io/collector/config/configtelemetry"
 	"go.opentelemetry.io/collector/consumer/consumererror"
 	"go.opentelemetry.io/collector/consumer/pdata"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
+	"go.opentelemetry.io/collector/obsreport"
 	"go.opentelemetry.io/collector/translator/conventions"
 	"go.opentelemetry.io/collector/translator/internaldata"
 	traceexport "go.opentelemetry.io/otel/sdk/export/trace"
@@ -45,7 +48,9 @@ type traceExporter struct {
 type metricsExporter struct {
 	mexporter          *stackdriver.Exporter
 	labelsLimit        int
+	LabelsToResources  []LabelsToResource
 	loggerNoStacktrace *zap.Logger
+	obsrep             *obsreport.Processor
 }
 
 func (te *traceExporter) Shutdown(ctx context.Context) error {
@@ -167,12 +172,17 @@ func newGoogleCloudMetricsExporter(cfg *Config, params component.ExporterCreateP
 		options.MapResource = rm.mapResource
 	}
 
+	obsrep := obsreport.NewProcessor(obsreport.ProcessorSettings{
+		Level:         configtelemetry.GetMetricsLevelFlagValue(),
+		ProcessorName: cfg.Name(),
+	})
+
 	sde, serr := stackdriver.NewExporter(options)
 	if serr != nil {
 		return nil, fmt.Errorf("cannot configure Google Cloud metric exporter: %w", serr)
 	}
-	mExp := &metricsExporter{mexporter: sde, labelsLimit: cfg.LabelsLimit,
-		loggerNoStacktrace: params.Logger.WithOptions(zap.AddStacktrace(zapcore.PanicLevel))}
+	mExp := &metricsExporter{mexporter: sde, labelsLimit: cfg.LabelsLimit, LabelsToResources: cfg.LabelsToResources,
+		loggerNoStacktrace: params.Logger.WithOptions(zap.AddStacktrace(zapcore.PanicLevel)), obsrep: obsrep}
 
 	return exporterhelper.NewMetricsExporter(
 		cfg,
@@ -197,10 +207,12 @@ func (me *metricsExporter) pushMetrics(ctx context.Context, m pdata.Metrics) err
 	// combine the data here to avoid generating too many RPC calls.
 	mds := exportAdditionalLabels(internaldata.MetricsToOC(m))
 	count := 0
-
-	for _, md := range mds {
-		if me.labelsLimit > 0 {	// drop metrics with labels count greater then labelsLimit
-			for _, metric := range md.Metrics {
+	for i := 0; i < len(mds); i++ {
+		if len(me.LabelsToResources) > 0 {
+			me.mapLabelsToResource(&mds[i])
+		}
+		if me.labelsLimit > 0 { // drop metrics with labels count greater then labelsLimit
+			for _, metric := range mds[i].Metrics {
 				if len(metric.GetMetricDescriptor().GetLabelKeys()) <= me.labelsLimit {
 					count++
 				} else {
@@ -211,7 +223,7 @@ func (me *metricsExporter) pushMetrics(ctx context.Context, m pdata.Metrics) err
 				}
 			}
 		} else {
-			count += len(md.Metrics)
+			count += len(mds[i].Metrics)
 		}
 	}
 	if count == 0 {
@@ -229,6 +241,7 @@ func (me *metricsExporter) pushMetrics(ctx context.Context, m pdata.Metrics) err
 		for _, metric := range md.Metrics {
 			if me.labelsLimit > 0 && len(metric.GetMetricDescriptor().GetLabelKeys()) > me.labelsLimit {
 				// drop metrics with labels count greater then labelsLimit
+				me.obsrep.MetricsRefused(ctx, len(metric.Timeseries))
 				continue
 			}
 			if metric.Resource == nil && md.Resource != nil {
@@ -243,6 +256,80 @@ func (me *metricsExporter) pushMetrics(ctx context.Context, m pdata.Metrics) err
 	dropped, err := me.mexporter.PushMetricsProto(ctx, nil, nil, metrics)
 	recordPointCount(ctx, points-dropped, dropped, err)
 	return err
+}
+
+func (me *metricsExporter) mapLabelsToResource(md *internaldata.MetricsData) {
+	metrics := make([]*metricspb.Metric, 0, len(md.Metrics))
+	for _, metric := range md.Metrics {
+
+		if metric.Resource == nil && md.Resource != nil {
+			metric.Resource = md.Resource
+		}
+		found := false
+		for _, ltr := range me.LabelsToResources {
+			if me.labelsLimit == 0 || me.labelsLimit >= len(metric.GetMetricDescriptor().GetLabelKeys())-len(ltr.LabelToResources) {
+				for _, labelKey := range metric.MetricDescriptor.LabelKeys {
+					if labelKey.Key == ltr.RequiredLabel {
+						labelKeys := append([]*metricspb.LabelKey(nil), metric.MetricDescriptor.LabelKeys...)
+
+						indices := make([]int, 0, len(ltr.LabelToResources))
+						for _, mapping := range ltr.LabelToResources {
+							for i := 0; i < len(labelKeys); i++ {
+								if labelKeys[i].Key == mapping.SourceLabel {
+									indices = append(indices, i)
+									labelKeys[i] = labelKeys[len(labelKeys)-1]
+									labelKeys = labelKeys[:len(labelKeys)-1]
+									break
+								}
+							}
+						}
+						if len(indices) < len(ltr.LabelToResources) {
+							me.loggerNoStacktrace.Debug("Mapping failed: ",
+								zap.String("metric", metric.GetMetricDescriptor().String()))
+							break
+						}
+						found = true
+						metric.MetricDescriptor.LabelKeys = labelKeys
+						for _, ts := range metric.Timeseries {
+							resourceLabels := make(map[string]string)
+							if metric.Resource != nil {
+								for k, v := range metric.Resource.Labels {
+									resourceLabels[k] = v
+								}
+							}
+
+							for iTarget, iSource := range indices {
+								resourceLabels[ltr.LabelToResources[iTarget].TargetResourceLabel] = ts.LabelValues[iSource].Value
+								ts.LabelValues[iSource] = ts.LabelValues[len(ts.LabelValues)-1]
+								ts.LabelValues = ts.LabelValues[:len(ts.LabelValues)-1]
+							}
+
+							//TODO: Optimize, do not create Metric for each ts if the same Resource labels
+							metrics = append(metrics, &metricspb.Metric{
+								Timeseries:       []*metricspb.TimeSeries{ts},
+								MetricDescriptor: metric.MetricDescriptor,
+								Resource: &resourcepb.Resource{
+									Type:   ltr.TargetType,
+									Labels: resourceLabels,
+								},
+							})
+						}
+						break
+					}
+				}
+			} else {
+				me.loggerNoStacktrace.Debug("Skipping Mapping: ",
+					zap.String("metric", metric.GetMetricDescriptor().String()))
+			}
+			if found {
+				break
+			}
+		}
+		if !found {
+			metrics = append(metrics, metric)
+		}
+	}
+	md.Metrics = metrics
 }
 
 func exportAdditionalLabels(mds []internaldata.MetricsData) []internaldata.MetricsData {
