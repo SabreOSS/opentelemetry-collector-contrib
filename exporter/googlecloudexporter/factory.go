@@ -60,6 +60,7 @@ func createDefaultConfig() config.Exporter {
 			RetrySettings:    exporterhelper.NewDefaultRetrySettings(),
 			QueueSettings:    exporterhelper.NewDefaultQueueSettings(),
 			UserAgent:        "opentelemetry-collector-contrib {{version}}",
+			LabelsLimit:      0,
 		}
 	}
 	return &Config{
@@ -138,7 +139,7 @@ func createMetricsExporter(
 	if err != nil {
 		return nil, err
 	}
-	return exporterhelper.NewMetricsExporter(
+	exporter, err := exporterhelper.NewMetricsExporter(
 		cfg,
 		params,
 		mExp.PushMetrics,
@@ -148,4 +149,9 @@ func createMetricsExporter(
 		exporterhelper.WithTimeout(exporterhelper.TimeoutSettings{Timeout: 0}),
 		exporterhelper.WithQueue(eCfg.QueueSettings),
 		exporterhelper.WithRetry(eCfg.RetrySettings))
+	if err != nil {
+		return nil, err
+	}
+	//return resourcetotelemetry.WrapMetricsExporter(eCfg.ResourceToTelemetrySettings, exporter), nil
+	return exporter, nil
 }
