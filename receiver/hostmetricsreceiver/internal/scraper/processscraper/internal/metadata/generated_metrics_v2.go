@@ -156,7 +156,7 @@ type metricProcessMemoryPhysicalUsage struct {
 func (m *metricProcessMemoryPhysicalUsage) init() {
 	m.data.SetName("process.memory.physical_usage")
 	m.data.SetDescription("The amount of physical memory in use.")
-	m.data.SetUnit("By")
+	m.data.SetUnit("B")
 	m.data.SetDataType(pmetric.MetricDataTypeSum)
 	m.data.Sum().SetIsMonotonic(false)
 	m.data.Sum().SetAggregationTemporality(pmetric.MetricAggregationTemporalityCumulative)
@@ -207,7 +207,7 @@ type metricProcessMemoryVirtualUsage struct {
 func (m *metricProcessMemoryVirtualUsage) init() {
 	m.data.SetName("process.memory.virtual_usage")
 	m.data.SetDescription("Virtual memory size.")
-	m.data.SetUnit("By")
+	m.data.SetUnit("B")
 	m.data.SetDataType(pmetric.MetricDataTypeSum)
 	m.data.Sum().SetIsMonotonic(false)
 	m.data.Sum().SetAggregationTemporality(pmetric.MetricAggregationTemporalityCumulative)
