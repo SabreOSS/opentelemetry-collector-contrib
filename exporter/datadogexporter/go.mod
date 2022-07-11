@@ -22,7 +22,7 @@ require (
 	go.opentelemetry.io/collector/semconv v0.53.1-0.20220615184617-4cefca87d2c6
 	go.uber.org/multierr v1.8.0
 	go.uber.org/zap v1.21.0
-	gopkg.in/DataDog/dd-trace-go.v1 v1.38.1
+	gopkg.in/DataDog/dd-trace-go.v1 v1.39.1
 	gopkg.in/zorkian/go-datadog-api.v2 v2.30.0
 	k8s.io/apimachinery v0.24.2
 	k8s.io/client-go v0.24.2
