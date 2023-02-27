@@ -6,7 +6,7 @@ require (
 	github.com/apache/thrift v0.17.0
 	github.com/jaegertracing/jaeger v1.41.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/jaeger v0.69.0
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	go.opentelemetry.io/collector v0.69.2-0.20230112233839-f2a0133bf677
 	go.opentelemetry.io/collector/component v0.69.2-0.20230112233839-f2a0133bf677
 	go.opentelemetry.io/collector/confmap v0.69.2-0.20230112233839-f2a0133bf677
