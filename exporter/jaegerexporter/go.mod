@@ -10,14 +10,14 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/jaeger v0.81.0
 	github.com/stretchr/testify v1.8.4
 	go.opencensus.io v0.24.0
-	go.opentelemetry.io/collector/component v0.81.0
+	go.opentelemetry.io/collector/component v0.82.0
 	go.opentelemetry.io/collector/config/configgrpc v0.81.0
 	go.opentelemetry.io/collector/config/configopaque v0.81.0
 	go.opentelemetry.io/collector/config/configtls v0.81.0
-	go.opentelemetry.io/collector/confmap v0.81.0
+	go.opentelemetry.io/collector/confmap v0.82.0
 	go.opentelemetry.io/collector/consumer v0.81.0
 	go.opentelemetry.io/collector/exporter v0.81.0
-	go.opentelemetry.io/collector/pdata v1.0.0-rcv0013
+	go.opentelemetry.io/collector/pdata v1.0.0-rcv0014
 	go.uber.org/zap v1.24.0
 	google.golang.org/grpc v1.56.2
 )
@@ -51,11 +51,11 @@ require (
 	go.opentelemetry.io/collector/config/configauth v0.81.0 // indirect
 	go.opentelemetry.io/collector/config/configcompression v0.81.0 // indirect
 	go.opentelemetry.io/collector/config/confignet v0.81.0 // indirect
-	go.opentelemetry.io/collector/config/configtelemetry v0.81.0 // indirect
+	go.opentelemetry.io/collector/config/configtelemetry v0.82.0 // indirect
 	go.opentelemetry.io/collector/config/internal v0.81.0 // indirect
 	go.opentelemetry.io/collector/extension v0.81.0 // indirect
 	go.opentelemetry.io/collector/extension/auth v0.81.0 // indirect
-	go.opentelemetry.io/collector/featuregate v1.0.0-rcv0013 // indirect
+	go.opentelemetry.io/collector/featuregate v1.0.0-rcv0014 // indirect
 	go.opentelemetry.io/collector/processor v0.81.0 // indirect
 	go.opentelemetry.io/collector/receiver v0.81.0 // indirect
 	go.opentelemetry.io/collector/semconv v0.81.0 // indirect
