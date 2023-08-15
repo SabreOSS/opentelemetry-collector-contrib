@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/wavefronthq/wavefront-sdk-go v0.13.0
 	go.opentelemetry.io/collector v0.82.0
-	go.opentelemetry.io/collector/component v0.82.0
+	go.opentelemetry.io/collector/component v0.83.0
 	go.opentelemetry.io/collector/config/confighttp v0.82.0
 	go.opentelemetry.io/collector/exporter v0.82.0
 	go.opentelemetry.io/collector/pdata v1.0.0-rcv0014
@@ -67,10 +67,10 @@ require (
 	go.opentelemetry.io/collector/config/configauth v0.82.0 // indirect
 	go.opentelemetry.io/collector/config/configcompression v0.82.0 // indirect
 	go.opentelemetry.io/collector/config/configopaque v0.82.0 // indirect
-	go.opentelemetry.io/collector/config/configtelemetry v0.82.0 // indirect
+	go.opentelemetry.io/collector/config/configtelemetry v0.83.0 // indirect
 	go.opentelemetry.io/collector/config/configtls v0.82.0 // indirect
 	go.opentelemetry.io/collector/config/internal v0.82.0 // indirect
-	go.opentelemetry.io/collector/confmap v0.82.0 // indirect
+	go.opentelemetry.io/collector/confmap v0.83.0 // indirect
 	go.opentelemetry.io/collector/connector v0.82.0 // indirect
 	go.opentelemetry.io/collector/consumer v0.82.0 // indirect
 	go.opentelemetry.io/collector/extension v0.82.0 // indirect
@@ -94,9 +94,9 @@ require (
 	go.opentelemetry.io/otel/sdk/metric v0.39.0 // indirect
 	go.opentelemetry.io/otel/trace v1.16.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
-	golang.org/x/net v0.12.0 // indirect
-	golang.org/x/sys v0.10.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/net v0.14.0 // indirect
+	golang.org/x/sys v0.11.0 // indirect
+	golang.org/x/text v0.12.0 // indirect
 	gonum.org/v1/gonum v0.13.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20230726155614-23370e0ffb3e // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230726155614-23370e0ffb3e // indirect
