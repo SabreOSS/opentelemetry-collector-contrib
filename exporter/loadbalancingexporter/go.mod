@@ -8,7 +8,7 @@ require (
 	go.opencensus.io v0.24.0
 	go.opentelemetry.io/collector v0.82.0
 	go.opentelemetry.io/collector/component v0.82.0
-	go.opentelemetry.io/collector/confmap v0.82.0
+	go.opentelemetry.io/collector/confmap v0.88.0
 	go.opentelemetry.io/collector/consumer v0.82.0
 	go.opentelemetry.io/collector/exporter v0.82.0
 	go.opentelemetry.io/collector/exporter/otlpexporter v0.82.0
@@ -93,7 +93,7 @@ require (
 	go.opentelemetry.io/collector/connector v0.82.0 // indirect
 	go.opentelemetry.io/collector/extension v0.82.0 // indirect
 	go.opentelemetry.io/collector/extension/auth v0.82.0 // indirect
-	go.opentelemetry.io/collector/featuregate v1.0.0-rcv0014 // indirect
+	go.opentelemetry.io/collector/featuregate v1.0.0-rcv0017 // indirect
 	go.opentelemetry.io/collector/processor v0.82.0 // indirect
 	go.opentelemetry.io/collector/receiver v0.82.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.42.1-0.20230612162650-64be7e574a17 // indirect
