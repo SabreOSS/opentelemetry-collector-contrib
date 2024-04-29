@@ -9,7 +9,7 @@ require (
 	go.opentelemetry.io/collector/component v0.82.0
 	go.opentelemetry.io/collector/extension v0.82.0
 	go.opentelemetry.io/collector/extension/auth v0.82.0
-	go.uber.org/zap v1.25.0
+	go.uber.org/zap v1.27.0
 )
 
 require (
