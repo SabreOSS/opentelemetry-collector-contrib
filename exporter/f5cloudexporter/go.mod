@@ -12,7 +12,7 @@ require (
 	go.opentelemetry.io/collector/confmap v0.82.0
 	go.opentelemetry.io/collector/exporter v0.82.0
 	go.opentelemetry.io/collector/exporter/otlphttpexporter v0.82.0
-	golang.org/x/oauth2 v0.10.0
+	golang.org/x/oauth2 v0.19.0
 	google.golang.org/api v0.134.0
 )
 
