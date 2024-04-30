@@ -7,10 +7,10 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal v0.82.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatatest v0.82.0
 	github.com/shirou/gopsutil/v3 v3.23.6
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	github.com/testcontainers/testcontainers-go v0.21.0
 	go.opentelemetry.io/collector/component v0.82.0
-	go.opentelemetry.io/collector/config/confignet v0.82.0
+	go.opentelemetry.io/collector/config/confignet v0.99.0
 	go.opentelemetry.io/collector/config/configopaque v0.82.0
 	go.opentelemetry.io/collector/confmap v0.82.0
 	go.opentelemetry.io/collector/consumer v0.82.0
@@ -90,7 +90,6 @@ require (
 	go.opentelemetry.io/otel v1.16.0 // indirect
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.opentelemetry.io/otel/trace v1.16.0 // indirect
-	go.uber.org/goleak v1.2.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/exp v0.0.0-20230510235704-dd950f8aeaea // indirect
 	golang.org/x/net v0.12.0 // indirect
