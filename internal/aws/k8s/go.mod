@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/aws/aws-sdk-go v1.44.316
 	github.com/stretchr/testify v1.8.4
-	go.uber.org/zap v1.25.0
+	go.uber.org/zap v1.27.0
 	k8s.io/api v0.27.4
 	k8s.io/apimachinery v0.27.4
 	k8s.io/client-go v0.27.4
