@@ -1,14 +1,14 @@
 module github.com/open-telemetry/opentelemetry-collector-contrib/extension/jaegerremotesampling
 
-go 1.19
+go 1.25.0
 
 require (
 	github.com/jaegertracing/jaeger v1.41.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/collector/component v0.82.0
 	go.opentelemetry.io/collector/config/configgrpc v0.82.0
 	go.opentelemetry.io/collector/config/confighttp v0.82.0
-	go.opentelemetry.io/collector/config/confignet v0.82.0
+	go.opentelemetry.io/collector/config/confignet v1.64.0
 	go.opentelemetry.io/collector/config/configopaque v0.82.0
 	go.opentelemetry.io/collector/config/configtls v0.82.0
 	go.opentelemetry.io/collector/confmap v0.82.0
@@ -18,6 +18,7 @@ require (
 )
 
 require (
+	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/apache/thrift v0.18.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
