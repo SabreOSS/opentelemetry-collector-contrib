@@ -6,7 +6,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer v0.82.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/ecsutil v0.82.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/common v0.82.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.12.0
 	go.opentelemetry.io/collector/component v0.82.0
 	go.opentelemetry.io/collector/config/confighttp v0.82.0
 	go.opentelemetry.io/collector/confmap v0.82.0
@@ -15,7 +15,6 @@ require (
 )
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
@@ -29,7 +28,6 @@ require (
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.1-0.20220423185008-bf980b35cac4 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rs/cors v1.9.0 // indirect
 	go.opentelemetry.io/collector v0.82.0 // indirect
 	go.opentelemetry.io/collector/config/configauth v0.82.0 // indirect
