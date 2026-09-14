@@ -1,6 +1,6 @@
 module github.com/open-telemetry/opentelemetry-collector-contrib/testbed
 
-go 1.19
+go 1.26.0
 
 require (
 	github.com/fluent/fluent-logger-golang v1.9.0
@@ -28,13 +28,13 @@ require (
 	github.com/prometheus/common v0.44.0
 	github.com/prometheus/prometheus v0.44.0
 	github.com/shirou/gopsutil/v3 v3.23.6
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.12.1
 	go.opentelemetry.io/collector v0.82.0
 	go.opentelemetry.io/collector/component v0.82.0
 	go.opentelemetry.io/collector/config/configcompression v0.82.0
 	go.opentelemetry.io/collector/config/configgrpc v0.82.0
 	go.opentelemetry.io/collector/config/confighttp v0.82.0
-	go.opentelemetry.io/collector/config/confignet v0.82.0
+	go.opentelemetry.io/collector/config/confignet v1.66.0
 	go.opentelemetry.io/collector/config/configtls v0.82.0
 	go.opentelemetry.io/collector/confmap v0.82.0
 	go.opentelemetry.io/collector/consumer v0.82.0
@@ -72,7 +72,7 @@ require (
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/DataDog/datadog-agent/pkg/trace v0.48.0-devel // indirect
 	github.com/DataDog/datadog-agent/pkg/trace/exportable v0.0.0-20201016145401-4646cf596b02 // indirect
-	github.com/Microsoft/go-winio v0.6.0 // indirect
+	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
 	github.com/apache/thrift v0.18.1 // indirect
 	github.com/armon/go-metrics v0.4.1 // indirect
@@ -185,7 +185,6 @@ require (
 	github.com/ovh/go-ovh v1.4.1 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/power-devops/perfstat v0.0.0-20220216144756-c35f1ee13d7c // indirect
 	github.com/prometheus/client_golang v1.16.0 // indirect
 	github.com/prometheus/client_model v0.4.0 // indirect
@@ -237,7 +236,8 @@ require (
 	go.opentelemetry.io/otel/trace v1.16.0 // indirect
 	go.opentelemetry.io/proto/otlp v0.19.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
-	go.uber.org/goleak v1.2.1 // indirect
+	go.uber.org/goleak v1.3.0 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/crypto v0.11.0 // indirect
 	golang.org/x/exp v0.0.0-20230510235704-dd950f8aeaea // indirect
 	golang.org/x/mod v0.12.0 // indirect
